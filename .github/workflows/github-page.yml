@@ -18,7 +18,7 @@ jobs:
       contents: read
 
     env:
-      NODE_VERSION: 22
+      NODE_VERSION: 24
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       NODE_OPTIONS: --no-deprecation
