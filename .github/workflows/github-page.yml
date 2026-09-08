@@ -9,19 +9,18 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   ci:
     name: Continuous Integration
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-
     env:
       NODE_VERSION: 24
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      NODE_OPTIONS: --no-deprecation
 
     steps:
       - name: Checkout Repository
@@ -44,20 +43,18 @@ jobs:
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload Website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/client
+          path: ./out
 
   cd:
     name: Continuous Deployment
     needs: ci
     runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
 
     environment:
       name: github-pages
